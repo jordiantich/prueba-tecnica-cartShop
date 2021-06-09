@@ -1,0 +1,11 @@
+<h2>Productos</h2>
+<ul class="listado" *ngFor="let p of products">
+  <li>{{p.id}} {{p.name}}:{{p.price}}<button (click)="addCart(products)">+</button></li>
+</ul>
+
+<div *ngIf="selectProduct">
+  <h2>Cart:</h2>
+  <ul>
+      <li>{{selectProduct}}</li>
+  </ul>
+</div>

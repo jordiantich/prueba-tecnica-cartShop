@@ -4,9 +4,26 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
 
 const routes: Routes = [
-  {path:'shop', component:ShopComponent},
-  {path:'check', component:CheckoutComponent},
-  {path:'', redirectTo: '/shop', pathMatch:'full'}
+  {
+    path:'',
+    redirectTo: 'shop',
+    pathMatch:'full'
+  },
+  {
+    path:'shop',
+    component: ShopComponent
+  },
+  {
+    path:'checkout',
+    component: CheckoutComponent
+  },
+
+  {
+    path:'**',
+    redirectTo: 'shop',
+    pathMatch:'full'
+  }
+
 ];
 
 @NgModule({

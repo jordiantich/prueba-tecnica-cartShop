@@ -1,11 +1,32 @@
-<h2>Productos</h2>
-<ul class="listado" *ngFor="let p of products">
-  <li>{{p.id}} {{p.name}}:{{p.price}}<button (click)="addCart(products)">+</button></li>
-</ul>
+<div style="margin-left:2em; margin-top:2em;">
+  <h1>Productos</h1>
+  <div class="card" style="width: 18rem; margin-left:1em; margin-bottom:2em;">
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item" *ngFor="let p of products"><span style="font-weight:bold; color:rgb(13, 99, 228);">{{p.id}}</span> <hr> {{p.name}}: {{p.price}}€ <img style="width:10em; height:15em; object-fit:cover; margin:0.8em auto; box-shadow: 0px 2px 3px 2px rgb(20, 20, 20, 0.3);" src={{p.img}}>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary" (click)="addCart(p)">+</button>
+          <button type="button" class="btn btn-primary" (click)="deleteCart(p)">-</button>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-<div *ngIf="selectProduct">
-  <h2>Cart:</h2>
-  <ul>
-      <li>{{selectProduct}}</li>
-  </ul>
+  <hr style="border-style: dotted; width:80vw; height:0.1em;">
+
+  <div *ngIf="cart">
+    <h1>Cart</h1>
+    <div *ngFor="let product of cart" class="list-group" style="width:30%; margin-left:1em">
+      <h4 class="list-group-item list-group-item-action active">{{ product.name }}</h4>
+      <ul>
+        <li class="list-group-item list-group-item-action">Unit Price: {{ product.price }}€</li>
+        <li class="list-group-item list-group-item-action" *ngIf="product.id === 'GR1'">Quantity Free: {{ product.quantity / 2 }}</li>
+        <li class="list-group-item list-group-item-action" *ngIf="product.id === 'SR1' && product.quantity >= 3 && product.finalPrice">Price Dropped:{{ product.price * product.quantity - product.finalPrice }}</li>
+        <li class="list-group-item list-group-item-action" *ngIf="product.id === 'CF1' && product.quantity >= 3 && product.finalPrice">Price Dropped:{{product.price * product.quantity - product.finalPrice| number: "1.2-2"}}</li>
+        <li class="list-group-item list-group-item-action" *ngIf="product.finalPrice">Price WITH discount: {{ product.finalPrice | number:"1.2-2"}}€</li>
+        <li class="list-group-item list-group-item-action">Quantity: {{ product.quantity }} unit(s)</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="btn btn-primary active" role="button" data-bs-toggle="button" aria-pressed="true" routerLink='/checkout' style="margin-top:2em; margin-bottom:2em;">Ir a total Compra</a>
 </div>
